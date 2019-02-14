@@ -5,9 +5,5 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FirstWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="252.365" Margin="141.946,67.257,0,0" VerticalAlignment="Top" Width="485.473"/>
-
-    </Grid>
+        Title="MainWindow" HorizontalAlignment="Center">
 </Window>

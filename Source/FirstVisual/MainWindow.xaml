@@ -1,0 +1,14 @@
+﻿<Window x:Class="FirstVisual.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:custom="clr-namespace:FirstVisual"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FirstVisual"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <StackPanel x:Name="myStackPanel" Background="AliceBlue">
+        <Image x:Name="myImage" Height="80"/>
+        <custom:CustomVisualFrameworkElement/>
+    </StackPanel>
+</Window>
