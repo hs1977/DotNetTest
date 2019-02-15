@@ -5,5 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FirstWPF"
         mc:Ignorable="d"
-        Title="MainWindow" HorizontalAlignment="Center">
+        Title="MainWindow" HorizontalAlignment="Center" Loaded="Window_Loaded">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="WindowBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Red" Offset="0"/>
+            <GradientStop Color="#FF0C21FB" Offset="1"/>
+            <GradientStop Color="#FF16F553" Offset="0.51"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top" Header="&#xD;&#xA;">
+            <Button x:Name="btnPreviousImage" Content="Previous" Height="40" Width="100" BorderBrush="Black" Click="BtnPreviousImage_Click" Margin="5" Background="{DynamicResource ApplicationBrush}"/>
+            <Button x:Name="btnNextImage" BorderBrush="Black" Click="BtnNextImage_Click" Margin="5">
+                <StackPanel>
+                    <Label Content="No Way!"/>
+                    <Ellipse Width="100" Height="100" Fill="{StaticResource WindowBrush}"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnTest1" Content="Test1" Height="40" Width="100" BorderBrush="Black" Click="BtnTest1_Click" Margin="5" Background="{StaticResource FileBrush}"/>
+            <Button x:Name="btnTest2" Content="Test2" Height="40" Width="100" BorderBrush="Black" Click="BtnTest2_Click" Margin="5" Background="{DynamicResource LibraryBrush}"/>
+        </ToolBar>
+        <Border BorderBrush="Black" BorderThickness="2" DockPanel.Dock="Bottom">
+            <Image x:Name="imageHolder"/>
+        </Border>
+    </DockPanel>
 </Window>
