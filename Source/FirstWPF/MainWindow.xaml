@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FirstWPF"
         mc:Ignorable="d"
-        Title="MainWindow" HorizontalAlignment="Center" Loaded="Window_Loaded">
+        Title="MainWindow" HorizontalAlignment="Center" Loaded="Window_Loaded" Width="956">
     <Window.Resources>
         <LinearGradientBrush x:Key="WindowBrush" EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Red" Offset="0"/>
@@ -18,12 +18,42 @@
             <Button x:Name="btnPreviousImage" Content="Previous" Height="40" Width="100" BorderBrush="Black" Click="BtnPreviousImage_Click" Margin="5" Background="{DynamicResource ApplicationBrush}"/>
             <Button x:Name="btnNextImage" BorderBrush="Black" Click="BtnNextImage_Click" Margin="5">
                 <StackPanel>
-                    <Label Content="No Way!"/>
+                    <Label Content="Interesting!">
+                        <Label.Triggers>
+                            <EventTrigger RoutedEvent = "Label.Loaded">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetProperty = "FontSize">
+                                            <DoubleAnimation From = "12" To = "100" Duration = "0:0:30" RepeatBehavior = "Forever"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Label.Triggers>
+                    </Label>
                     <Ellipse Width="100" Height="100" Fill="{StaticResource WindowBrush}"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btnTest1" Content="Test1" Height="40" Width="100" BorderBrush="Black" Click="BtnTest1_Click" Margin="5" Background="{StaticResource FileBrush}"/>
-            <Button x:Name="btnTest2" Content="Test2" Height="40" Width="100" BorderBrush="Black" Click="BtnTest2_Click" Margin="5" Background="{DynamicResource LibraryBrush}"/>
+            <Button x:Name="btnTest1" Content="Test1" Height="40" Width="100" BorderBrush="Black" Click="BtnTest1_Click" Margin="5" Background="{StaticResource FileBrush}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <StringAnimationUsingKeyFrames RepeatBehavior = "Forever" Storyboard.TargetName="btnTest1" Storyboard.TargetProperty="Content" Duration="0:0:4">
+                                    <DiscreteStringKeyFrame Value="" KeyTime="0:0:0" />
+                                    <DiscreteStringKeyFrame Value="O" KeyTime="0:0:0.5" />
+                                    <DiscreteStringKeyFrame Value="OK" KeyTime="0:0:2" />
+                                    <DiscreteStringKeyFrame Value="OK!" KeyTime="0:0:3.5" />
+                                </StringAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button x:Name="btnTest2" Content="Test2" Height="40" BorderBrush="Black" Click="BtnTest2_Click" Margin="5" Background="{DynamicResource LibraryBrush}" MouseEnter="BtnTest2_MouseEnter" Style="{DynamicResource TiltButton}"/>
+            <Button x:Name="btnTest3" Content="Test3" Height="40" Width="100" BorderBrush="Black"/>
+            <ListBox x:Name="lstStyles" Height="80" Width="150" Margin="5,0,0,0" SelectionChanged="LstStyles_SelectionChanged"/>
+            <Button x:Name="btnSimple" Content="Button" Height="56" Style="{DynamicResource SimpleButton}" VerticalAlignment="Center" Width="68" Margin="5,0,0,0"/>
         </ToolBar>
         <Border BorderBrush="Black" BorderThickness="2" DockPanel.Dock="Bottom">
             <Image x:Name="imageHolder"/>

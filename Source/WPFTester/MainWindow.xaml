@@ -1,0 +1,50 @@
+﻿<Window x:Class="WPFTester.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFTester"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="691.6" Width="800">
+	<DockPanel>
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+			<local:ShowNumberControl x:Name="myShowNumberControl" Width="Auto" CurrentNumber="100">
+				<local:ShowNumberControl.Triggers>
+					<EventTrigger RoutedEvent = "FrameworkElement.Loaded">
+						<BeginStoryboard>
+							<Storyboard Storyboard.TargetProperty = "CurrentNumber">
+								<Int32Animation From = "100" To = "200" Duration = "0:0:10"/>
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger>
+				</local:ShowNumberControl.Triggers>
+			</local:ShowNumberControl>
+			<Button x:Name="btnClickMe" HorizontalAlignment="Left" Height="75" Width="250" Click="BtnClickMe_Click">
+				<StackPanel Orientation="Horizontal">
+					<Label Height="39" FontSize="20" Content="Fancy Button!"/>
+					<Canvas Width="100" Height="50">
+						<Ellipse x:Name="outerEllipse" Fill="Green" Height="45" Canvas.Left="15" Stroke="Black" Canvas.Top="2" Width="70" MouseDown="OuterEllipse_MouseDown" PreviewMouseDown="OuterEllipse_PreviewMouseDown"/>
+						<Ellipse x:Name="innerEllipse" Fill="Yellow" Height="15" Canvas.Left="32" Stroke="Black" Canvas.Top="17" Width="36"/>
+					</Canvas>
+				</StackPanel>
+			</Button>
+		</StackPanel>
+		<Border BorderBrush="Black" BorderThickness="1" Height="50" DockPanel.Dock="Top">
+			<StackPanel Orientation="Horizontal">
+				<Button x:Name="btnShowLogicalTree" Content="Logical Tree of Window" Margin="4" BorderBrush="Blue" Height="40" Click="BtnShowLogicalTree_Click"/>
+				<Button x:Name="btnShowVisualTree" Content="Visual Tree of Window" BorderBrush="Blue" Height="40" Click="BtnShowVisualTree_Click"/>
+			</StackPanel>
+		</Border>
+		<Border BorderThickness="5" Width="350" Margin="10" BorderBrush="DarkGreen">
+			<StackPanel Margin="5">
+				<Label Content="Enter Full Name of WPF Control"/>
+				<TextBox x:Name="txtFullName" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="System.Windows.Controls.Button" Width="340" BorderBrush="Green"/>
+				<Button x:Name="btnTemplate" Content="See Template" Height="40" Width="100" BorderBrush="Green" Click="BtnTemplate_Click" HorizontalAlignment="Left"/>
+				<Border BorderBrush="Black" BorderThickness="2" Margin="5" Height="400">
+					<StackPanel x:Name="stackTemplatePanel"/>
+				</Border>
+			</StackPanel>
+		</Border>
+		<TextBox x:Name="txtDisplayArea" Margin="5" TextWrapping="Wrap" Text="TextBox" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" DockPanel.Dock="Right"/>
+	</DockPanel>
+</Window>

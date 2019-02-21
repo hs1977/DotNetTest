@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,12 +23,19 @@ namespace FirstWPF
 	{
 		List<BitmapImage> images = new List<BitmapImage>();
 
+		private bool isSpinning = false;
+
 		private int currImage = 0;
 		private const int MAX_IMAGES = 6;
 
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			lstStyles.Items.Add("GrowingButtonStyle");
+			lstStyles.Items.Add("TiltButton");
+			lstStyles.Items.Add("BigGreenButton");
+			lstStyles.Items.Add("BasicControlStyle");
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -82,6 +90,56 @@ namespace FirstWPF
 		{
 			Resources["FileBrush"] = new SolidColorBrush(Colors.Red);
 			Resources["LibraryBrush"] = new SolidColorBrush(Colors.Red);
+
+			DoubleAnimation dblAnim = new DoubleAnimation();
+			dblAnim.From = 1.0;
+			dblAnim.To = 0.0;
+			dblAnim.AutoReverse = true;
+			dblAnim.RepeatBehavior = new RepeatBehavior(2);
+
+			// Now, animation the RotateTransform object. 
+			btnTest2.BeginAnimation(Button.OpacityProperty, dblAnim);
+		}
+
+		private void BtnTest2_MouseEnter(object sender, MouseEventArgs e)
+		{
+			if (!isSpinning)
+			{
+				isSpinning = true;
+
+				// Make a double animation object, and register
+				// with the Completed event. 
+				DoubleAnimation dblAnim = new DoubleAnimation();
+				dblAnim.Completed += (o, s) => { isSpinning = false; };
+
+				// Button has 2 seconds to finish the spin!
+				dblAnim.Duration = new Duration(TimeSpan.FromSeconds(2));
+
+				// Set the start value and end value. 
+				dblAnim.From = 0;
+				dblAnim.To = 360;
+				dblAnim.RepeatBehavior = new RepeatBehavior(2);
+
+				// Now, create a RotateTransform object, and set 
+				// it to the RenderTransform property of our
+				// button
+				RotateTransform rt = new RotateTransform();
+				btnTest2.RenderTransform = rt;
+
+				// Now, animation the RotateTransform object. 
+				rt.BeginAnimation(RotateTransform.AngleProperty, dblAnim);
+			}
+		}
+
+		private void LstStyles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			Style currStyle = (Style)TryFindResource(lstStyles.SelectedValue);
+
+			if (currStyle != null)
+			{
+				// Set the style of the button type.
+				btnTest3.Style = currStyle;
+			}
 		}
 	}
 }
