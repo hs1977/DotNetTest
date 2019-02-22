@@ -141,5 +141,10 @@ namespace WPFTester
 				dataToShow = ex.Message;
 			}
 		}
+
+		private void BtnSpin_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			imgSpin.Spin();
+		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿<Window x:Class="WPFTester.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:custom="clr-namespace:FirstCustomControl;assembly=FirstCustomControl"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFTester"
@@ -29,10 +30,12 @@
 				</StackPanel>
 			</Button>
 		</StackPanel>
-		<Border BorderBrush="Black" BorderThickness="1" Height="50" DockPanel.Dock="Top">
+		<Border BorderBrush="Black" BorderThickness="1" Height="150" DockPanel.Dock="Top">
 			<StackPanel Orientation="Horizontal">
-				<Button x:Name="btnShowLogicalTree" Content="Logical Tree of Window" Margin="4" BorderBrush="Blue" Height="40" Click="BtnShowLogicalTree_Click"/>
+				<Button x:Name="btnShowLogicalTree" Content="Logical Tree of Window" Margin="4" BorderBrush="Blue" Height="40" Click="BtnShowLogicalTree_Click" Style="{DynamicResource RoundButtonStyle}" Background="Red"/>
 				<Button x:Name="btnShowVisualTree" Content="Visual Tree of Window" BorderBrush="Blue" Height="40" Click="BtnShowVisualTree_Click"/>
+				<local:SNUControl x:Name="btnSpin" MouseDown="BtnSpin_MouseDown" Width="100" Height="100"/>
+				<custom:SpinControl x:Name="imgSpin" Width="Auto" Height="Auto"/>
 			</StackPanel>
 		</Border>
 		<Border BorderThickness="5" Width="350" Margin="10" BorderBrush="DarkGreen">

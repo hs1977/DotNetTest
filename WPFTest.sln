@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrushLibrary", "Source\Brus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTester", "Source\WPFTester\WPFTester.csproj", "{6D72DB05-9D83-4E12-89EF-523F7A4686B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstCustomControl", "Source\FirstCustomControl\FirstCustomControl.csproj", "{46F8056C-8D2E-4694-9257-27DA6C64D001}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{6D72DB05-9D83-4E12-89EF-523F7A4686B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D72DB05-9D83-4E12-89EF-523F7A4686B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D72DB05-9D83-4E12-89EF-523F7A4686B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46F8056C-8D2E-4694-9257-27DA6C64D001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46F8056C-8D2E-4694-9257-27DA6C64D001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46F8056C-8D2E-4694-9257-27DA6C64D001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46F8056C-8D2E-4694-9257-27DA6C64D001}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
