@@ -8,8 +8,8 @@ namespace WPFStudy
 {
 	class StudyWindow : Window
 	{
-		SolidColorBrush brush = new SolidColorBrush(Colors.Black);
-	//	SolidColorBrush brush = Brushes.Black;		// 읽기 전용이라 Runtime Error
+		SolidColorBrush scbrush = new SolidColorBrush(Colors.Black);
+	//	SolidColorBrush scbrush = Brushes.Black;		// 읽기 전용이라 Runtime Error
 
 		int index = 0;
         PropertyInfo[] props;
@@ -17,7 +17,16 @@ namespace WPFStudy
 		public StudyWindow()
 		{
 			Title = "Huiva Huiva Main Window";
-			Background = brush;
+
+		//	LinearGradientBrush lgbrush = new LinearGradientBrush(Colors.Red, Colors.Blue, new Point(0, 0), new Point(1, 1));
+		//	Background = lgbrush;
+
+			RadialGradientBrush rgbrush = new RadialGradientBrush(Colors.White, Colors.Red);
+			Background = rgbrush;
+			rgbrush.SpreadMethod = GradientSpreadMethod.Repeat;
+
+			Content = "Huiva Huiva Main Window";
+			Foreground = rgbrush;
 
 			props = typeof(Brushes).GetProperties(BindingFlags.Public | BindingFlags.Static);
 		}
@@ -42,9 +51,11 @@ namespace WPFStudy
             Vector vectEllipse = new Vector(width / 2 * Math.Cos(angle), height / 2 * Math.Sin(angle));
             Byte byLevel = (byte) (255 * (1 - Math.Min(1, vectMouse.Length / vectEllipse.Length)));
 
-            Color clr = brush.Color;
+            Color clr = scbrush.Color;
             clr.R = clr.G = clr.B = byLevel;
-            brush.Color = clr;
+            scbrush.Color = clr;
+
+			Background = scbrush;
         }
 
 		protected override void OnKeyDown(KeyEventArgs args)
@@ -56,6 +67,26 @@ namespace WPFStudy
                 SetTitleAndBackground();
             }
             base.OnKeyDown(args);
+        }
+
+		protected override void OnTextInput(TextCompositionEventArgs args)
+        {
+            base.OnTextInput(args);
+            string str = Content as string;
+
+            if(args.Text == "\b")
+            {
+                if(str.Length > 0)
+				{
+					str = str.Substring(0, str.Length - 1);
+				}
+            }
+            else
+            {
+                str += args.Text;
+            }
+
+            Content = str;
         }
 
         void SetTitleAndBackground()

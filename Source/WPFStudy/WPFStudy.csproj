@@ -50,5 +50,13 @@
     <Compile Include="StudyApplication.cs" />
     <Compile Include="StudyWindow.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\바다1.jpg" />
+    <Resource Include="Images\바다3.jpg" />
+    <Resource Include="Images\바다5.jpg" />
+    <Resource Include="Images\박보영3.jpg" />
+    <Resource Include="Images\박보영4.jpg" />
+    <Resource Include="Images\박보영5.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
