@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace WPFStudy
 {
-	class StudyApp
+	class Study
 	{
 		enum ETest
 		{
