@@ -89,7 +89,20 @@ namespace WPFStudy
 			Console.WriteLine("{0}, {1}", s3.m_Value1, s3.m_Value2);
 		}
 
-		class CTest
+		class CParent
+		{
+			public void Func()
+			{
+				System.Console.WriteLine("CParent::Func");
+			}
+
+			public virtual void VFunc()
+			{
+				System.Console.WriteLine("CParent::VFunc");
+			}
+		}
+
+		class CTest : CParent
 		{
 			public CTest()
 			{
@@ -98,6 +111,16 @@ namespace WPFStudy
 			public CTest(int arg)
 			{
 				m_Value1 = arg;
+			}
+
+			public new void Func()		// 여기서 new가 없으면 Warning 발생
+			{
+				System.Console.WriteLine("CTest::Func");
+			}
+
+			public override void VFunc()
+			{
+				System.Console.WriteLine("CTest::VFunc");
 			}
 
 			public int m_Value1;
@@ -117,8 +140,16 @@ namespace WPFStudy
 			2.	클래스의 암시적 기본 생성자는 모든 멤버 데이터를 0 or null로 초기화한다.
 			*/
 
-			CTest t = new CTest(1);
-			Console.WriteLine("CTest m_Value: {0}, {1}", t.m_Value1, t.m_Value2);
+			{
+				CTest t = new CTest(1);
+				Console.WriteLine("CTest m_Value: {0}, {1}", t.m_Value1, t.m_Value2);
+			}
+
+			{
+				CParent p = new CTest();
+				p.Func();
+				p.VFunc();
+			}
 		}
 
 		[STAThread]
