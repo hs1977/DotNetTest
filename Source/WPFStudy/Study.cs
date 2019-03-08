@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Windows;
 
 namespace WPFStudy
@@ -104,6 +105,22 @@ namespace WPFStudy
 
 		class CTest : CParent
 		{
+			public IEnumerator GetEnumerator()		// IEnumerable을 상속하지 않아도 된다.
+			{
+				yield return 11;
+				yield return 12;
+				yield return 13;
+				yield return 14;
+			}
+
+			public IEnumerable DoForeach()			// 반복자에 이름 붙이기
+			{
+				yield return 21;
+				yield return 22;
+				yield return 23;
+				yield return 24;
+			}
+
 			public CTest()
 			{
 			}
@@ -143,6 +160,16 @@ namespace WPFStudy
 			{
 				CTest t = new CTest(1);
 				Console.WriteLine("CTest m_Value: {0}, {1}", t.m_Value1, t.m_Value2);
+
+				foreach (int i in t)
+				{
+					Console.WriteLine("{0}", i);
+				}
+
+				foreach (int i in t.DoForeach())
+				{
+					Console.WriteLine("{0}", i);
+				}
 			}
 
 			{

@@ -20,6 +20,13 @@ namespace WPFStudy
 			main.Show();
 
 			/*
+			// < Window :: Show & ShowDialog >
+
+			Show : Modeless
+			ShowDialog : Modal
+			*/
+
+			/*
 			for (int i = 0; i < 2; i++)
 			{
 				Window subwin = new Window();

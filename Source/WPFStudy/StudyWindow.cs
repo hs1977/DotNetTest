@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -31,10 +33,64 @@ namespace WPFStudy
 			props = typeof(Brushes).GetProperties(BindingFlags.Public | BindingFlags.Static);
 		}
 
+		private void PrintThread(string str)
+		{
+			Thread cur_thread = Thread.CurrentThread; 
+			System.Console.WriteLine(str + cur_thread.ManagedThreadId.ToString());
+		}
+
+		private int LongRun(int Sec)					// 새로운 스레드 진입함수
+		{
+			PrintThread("Before LongRun:");
+
+			Thread.Sleep(1000 * Sec);
+
+			PrintThread("After LongRun:");
+			return Sec;
+		}
+
+		private void AsnycCaller()
+		{
+			PrintThread("Before AsnycCaller:");
+			AsyncRun();
+			
+			for(int i = 0; i < 7; i++)
+			{
+				Thread.Sleep(1000);
+			}
+			
+			PrintThread("After AsnycCaller:");
+		}
+
+		private async void AsyncRun()	// asyn return type should void, Task, Task<T>
+		{
+			PrintThread("Before AsyncRun:");
+
+			var task = Task<int>.Run(() => LongRun(5));	// 새로운 스레드가 생성된다.
+			await task;		// await를 만나면 async 함수가 바로 반환된다. 
+							// 만일 UI Thread에서 async 함수를 호출했을 경우 await가 끝난 이후부터 async 함수 끝까지 코드를 UI Thread가 수행한다.
+							// 그러나 UI Thread가 아닌 스레드에서 async 함수를 호출했을 경우 await가 끝난 이후부터 async 함수 끝까지 코드를 await하는 task의 스레드가 수행한다.
+
+			PrintThread("After AsyncRun:");
+		}
+
 		protected override void OnMouseDown(MouseButtonEventArgs args)
 		{
-			string strMessage = string.Format("Window clicked with {0} button at point ({1})", args.ChangedButton, args.GetPosition(this));
-			MessageBox.Show(strMessage, Title);
+			PrintThread("Before OnMouseDown:");
+
+			if(args.ChangedButton == MouseButton.Left)
+			{
+				AsnycCaller();
+			}
+			else if(args.ChangedButton == MouseButton.Right)
+			{
+				Task.Run(() => AsnycCaller());	// 새로운 스레드가 생성된다.
+			}
+
+			PrintThread("After OnMouseDown:");
+
+		//	string strMessage = string.Format("Window clicked with {0} button at point ({1})", args.ChangedButton, args.GetPosition(this));
+		//	MessageBox.Show(strMessage, Title);
 		}
 
 		protected override void OnMouseMove(MouseEventArgs args)
@@ -60,6 +116,8 @@ namespace WPFStudy
 
 		protected override void OnKeyDown(KeyEventArgs args)
         {
+			PrintThread("OnKeyDown");
+
             if(args.Key == Key.Down || args.Key == Key.Up)
             {
                 index += args.Key == Key.Up ? 1 : props.Length - 1;
