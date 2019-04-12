@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -31,6 +32,30 @@ namespace WPFStudy
 			Foreground = rgbrush;
 
 			props = typeof(Brushes).GetProperties(BindingFlags.Public | BindingFlags.Static);
+
+			MouseDown += AllPurposeEventHandler;
+			MouseUp += AllPurposeEventHandler;
+			PreviewMouseDown += AllPurposeEventHandler;
+			PreviewMouseUp += AllPurposeEventHandler;
+		}
+
+		void AllPurposeEventHandler(object sender, RoutedEventArgs args)
+		{
+			// Display event information.
+			TextBlock text = new TextBlock();
+			text.Text = String.Format("{0,-30} {1,-15} {2,-15} {3,-15}",
+			                          args.RoutedEvent.Name,
+			                          TypeWithoutNamespace(sender),
+			                          TypeWithoutNamespace(args.Source),
+			                          TypeWithoutNamespace(args.OriginalSource));
+
+			System.Console.WriteLine(text.Text);
+		}
+
+		string TypeWithoutNamespace(object obj)
+		{
+			string[] astr = obj.GetType().ToString().Split('.');
+			return astr[astr.Length - 1];
 		}
 
 		private void PrintThread(string str)
@@ -78,6 +103,7 @@ namespace WPFStudy
 		{
 			PrintThread("Before OnMouseDown:");
 
+			/*
 			if(args.ChangedButton == MouseButton.Left)
 			{
 				AsnycCaller();
@@ -86,8 +112,11 @@ namespace WPFStudy
 			{
 				Task.Run(() => AsnycCaller());	// 새로운 스레드가 생성된다.
 			}
+			*/
 
 			PrintThread("After OnMouseDown:");
+
+			args.Handled = true;
 
 		//	string strMessage = string.Format("Window clicked with {0} button at point ({1})", args.ChangedButton, args.GetPosition(this));
 		//	MessageBox.Show(strMessage, Title);
@@ -113,6 +142,13 @@ namespace WPFStudy
 
 			Background = scbrush;
         }
+
+		protected override void OnMouseUp(MouseButtonEventArgs args)
+		{
+			PrintThread("Before OnMouseUp:");
+
+			PrintThread("After OnMouseUp:");
+		}
 
 		protected override void OnKeyDown(KeyEventArgs args)
         {
