@@ -33,7 +33,8 @@ namespace WPFStudy
 
 			props = typeof(Brushes).GetProperties(BindingFlags.Public | BindingFlags.Static);
 
-			MouseDown += AllPurposeEventHandler;
+			MouseDown += MouseEventHandler1;
+			MouseDown += MouseEventHandler2;
 			MouseUp += AllPurposeEventHandler;
 			PreviewMouseDown += AllPurposeEventHandler;
 			PreviewMouseUp += AllPurposeEventHandler;
@@ -52,7 +53,33 @@ namespace WPFStudy
 			System.Console.WriteLine(text.Text);
 		}
 
-		string TypeWithoutNamespace(object obj)
+        void MouseEventHandler1(object sender, RoutedEventArgs args)
+        {
+            // Display event information.
+            TextBlock text = new TextBlock();
+            text.Text = String.Format("{0,-30} {1,-15} {2,-15} {3,-15}",
+                                      args.RoutedEvent.Name,
+                                      TypeWithoutNamespace(sender),
+                                      TypeWithoutNamespace(args.Source),
+                                      TypeWithoutNamespace(args.OriginalSource));
+
+            System.Console.WriteLine(text.Text);
+        }
+
+        void MouseEventHandler2(object sender, RoutedEventArgs args)
+        {
+            // Display event information.
+            TextBlock text = new TextBlock();
+            text.Text = String.Format("{0,-30} {1,-15} {2,-15} {3,-15}",
+                                      args.RoutedEvent.Name,
+                                      TypeWithoutNamespace(sender),
+                                      TypeWithoutNamespace(args.Source),
+                                      TypeWithoutNamespace(args.OriginalSource));
+
+            System.Console.WriteLine(text.Text);
+        }
+
+        string TypeWithoutNamespace(object obj)
 		{
 			string[] astr = obj.GetType().ToString().Split('.');
 			return astr[astr.Length - 1];
@@ -116,7 +143,7 @@ namespace WPFStudy
 
 			PrintThread("After OnMouseDown:");
 
-			args.Handled = true;
+		//	args.Handled = true;	// 주석 처리해야 MouseEventHandler1, 2가 호출된다.
 
 		//	string strMessage = string.Format("Window clicked with {0} button at point ({1})", args.ChangedButton, args.GetPosition(this));
 		//	MessageBox.Show(strMessage, Title);
