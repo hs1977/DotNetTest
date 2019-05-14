@@ -36,6 +36,7 @@ namespace WPFStudy
 
 			MouseDown += MouseEventHandler1;
 			MouseDown += MouseEventHandler2;
+
 			MouseUp += AllPurposeEventHandler;
 			PreviewMouseDown += AllPurposeEventHandler;
 			PreviewMouseUp += AllPurposeEventHandler;
@@ -129,7 +130,15 @@ namespace WPFStudy
 
 		protected override void OnMouseDown(MouseButtonEventArgs args)
 		{
-			var sb = new StringBuilder();
+			/*
+			// < Event 처리 순서 - MouseDown >
+
+			System.Windows.Input.MouseButtonEventArgs.InvokeEventHandler(System.Delegate genericHandler, object genericTarget)	// 1. MouseDown에 등록된 delegate 순서대로 호출
+				System.Windows.UIElement.OnMouseDownThunk(object sender, System.Windows.Input.MouseButtonEventArgs e)			// 1.1 MouseDown에 첫 번째(기본) 등록된 delegate
+					WPFStudy.exe!WPFStudy.StudyWindow.OnMouseDown(System.Windows.Input.MouseButtonEventArgs args)				// 1.1.1 call OnMouseDown
+				WPFStudy.StudyWindow.MouseEventHandler1(object sender, System.Windows.RoutedEventArgs args)						// 1.2 MouseDown에 두 번째 등록된 delegate
+				WPFStudy.StudyWindow.MouseEventHandler1(object sender, System.Windows.RoutedEventArgs args)						// 1.3 MouseDown에 세 번째 등록된 delegate
+			*/
 
 			PrintThread("Before OnMouseDown:");
 
