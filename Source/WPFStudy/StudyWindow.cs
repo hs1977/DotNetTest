@@ -187,6 +187,8 @@ namespace WPFStudy
 			PrintThread("Before OnMouseUp:");
 
 			PrintThread("After OnMouseUp:");
+
+			PrintThread("End OnMouseUp:");
 		}
 
 		protected override void OnKeyDown(KeyEventArgs args)
