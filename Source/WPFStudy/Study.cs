@@ -82,6 +82,7 @@ namespace WPFStudy
 			
 			int i = 1;
 		//	int i = new int;		// Error
+		//	int i = new int();		// Error
 		//	int i = new int(1);		// Error
 
 		//	STest s0(1, 2);			// Error - 함수로 취급된다.
