@@ -16,5 +16,11 @@ namespace WinFormStudy
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void m_BtnFileDialog_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+        }
+    }
 }

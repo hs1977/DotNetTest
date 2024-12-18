@@ -51,7 +51,7 @@
                 </Button.Triggers>
             </Button>
             <Button x:Name="btnTest2" Content="Test2" Height="40" BorderBrush="Black" Click="BtnTest2_Click" Margin="5" Background="{DynamicResource LibraryBrush}" MouseEnter="BtnTest2_MouseEnter" Style="{DynamicResource TiltButton}"/>
-            <Button x:Name="btnTest3" Content="Test3" Height="40" Width="100" BorderBrush="Black"/>
+            <Button x:Name="btnTest3" Content="Test3" Height="40" Width="100" BorderBrush="Black" Click="btnTest3_Click"/>
             <ListBox x:Name="lstStyles" Height="80" Width="150" Margin="5,0,0,0" SelectionChanged="LstStyles_SelectionChanged"/>
             <Button x:Name="btnSimple" Content="Button" Height="56" Style="{DynamicResource SimpleButton}" VerticalAlignment="Center" Width="68" Margin="5,0,0,0"/>
         </ToolBar>

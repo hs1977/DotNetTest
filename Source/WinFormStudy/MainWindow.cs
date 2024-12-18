@@ -29,7 +29,6 @@ namespace WinFormStudy
 
 		private void MainWindow_Activated(object sender, EventArgs e)
 		{
-			int a = 0;
 		}
 
 		private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
@@ -51,7 +50,6 @@ namespace WinFormStudy
 
 		private void MainWindow_MouseMove(object sender, MouseEventArgs e)
 		{
-
 		}
 
 		private void testDlgToolStripMenuItem_Click(object sender, EventArgs e)

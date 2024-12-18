@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -131,7 +132,11 @@ namespace FirstWPF
 			}
 		}
 
-		private void LstStyles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btnTest3_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void LstStyles_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			Style currStyle = (Style)TryFindResource(lstStyles.SelectedValue);
 
@@ -141,5 +146,5 @@ namespace FirstWPF
 				btnTest3.Style = currStyle;
 			}
 		}
-	}
+    }
 }
