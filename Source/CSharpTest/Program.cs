@@ -72,16 +72,56 @@ namespace CSharpTest
 			System.Console.WriteLine(ToString());
 		}
 
-
 		public CChild m_Child;			// C#에서는 기본으로 null로 설정된다.
 	}
 	
+	class CPerson
+	{ 
+		public CPerson(string Name, int BirthYear) 
+		{
+			m_Name = Name;
+			m_BirthYear = BirthYear;
+		}
+
+		public override string ToString()
+		{ 
+			return m_Name;
+		}
+
+		public string m_Name;
+		public int m_BirthYear;
+	}
+
+	class CPersonComparerByBirthYear : IComparer<CPerson>
+	{
+		public int Compare(CPerson p1, CPerson p2)
+		{
+			if(p1.m_BirthYear < p2.m_BirthYear)
+			{
+				return -1;	
+			}
+			else if(p1.m_BirthYear > p2.m_BirthYear)
+			{
+				return 1;
+			}
+
+			return 0;
+		}
+	}
+
+	class CPersonComparerByName : IComparer<CPerson>
+	{
+		public int Compare(CPerson p1, CPerson p2)
+		{
+			return string.Compare(p1.m_Name, p2.m_Name);
+		}
+	}
 
 	internal class Program
 	{
-		static void Main(string[] args)
+		static void Test1()
 		{
-			System.Console.WriteLine("<START>");
+			System.Console.WriteLine("============<Test1 START>============");
 
 			CChild c = new CChild();
 			c.Func();
@@ -112,7 +152,53 @@ namespace CSharpTest
 			GC.WaitForPendingFinalizers();
 			*/
 
-			System.Console.WriteLine("<END>");
+			System.Console.WriteLine("=============<Test1 END>=============");
+		}
+
+		static void Test2()
+		{
+			System.Console.WriteLine("============<Test2 START>============");
+
+			/*
+			// < SortedSet >
+
+			1. SortedSet은 생성자 인수로 IComparer 구현 객체를 요구하고, 동일한 아이템을 유일하게 유지한다. 즉, 중복을 허용하지 않는다.
+			*/
+			SortedSet<CPerson> ss1 = new SortedSet<CPerson>(new CPersonComparerByBirthYear())
+			{
+				new CPerson("hs1977", 1977),
+				new CPerson("believe12", 1977),
+				new CPerson("dh2007", 2007),
+				new CPerson("ni2010", 2010)
+			};
+
+			foreach(CPerson p in ss1)
+			{
+				System.Console.WriteLine(p);
+			}
+
+			System.Console.WriteLine("-----------------------------------");
+			SortedSet<CPerson> ss2 = new SortedSet<CPerson>(new CPersonComparerByName())
+			{
+				new CPerson("hs1977", 1977),
+				new CPerson("believe12", 1977),
+				new CPerson("dh2007", 2007),
+				new CPerson("ni2010", 2010)
+			};
+
+			foreach(CPerson p in ss2)
+			{
+				System.Console.WriteLine(p);
+			}
+
+			System.Console.WriteLine("=============<Test2 END>=============");
+		}
+
+		static void Main(string[] args)
+		{
+			Test1();
+			Test2();
 		}
 	}
+
 }
