@@ -191,13 +191,34 @@ namespace CSharpTest
 				System.Console.WriteLine(p);
 			}
 
+			CPerson[] arrPerson1 = new[] { new CPerson("hs1977", 1977) };	// OK - 암시적으로 형식화된 배열(요소 타입이 추론이 가능한 경우)
+		//	CPerson[] arrPerson2 = new[] { };								// Error
+			CPerson[] arrPerson3 = new CPerson[] { };						// OK - 요소가 없어서 추론이 불가능한 경우 명시적으로 배열을 선언한다.
+
 			System.Console.WriteLine("=============<Test2 END>=============");
+		}
+
+		static void Test3()
+		{
+			CPerson[] family = new[] 
+			{
+				new CPerson("hs1977", 1977),
+				new CPerson("believe12", 1977),
+				new CPerson("dh2007", 2007),
+				new CPerson("ni2010", 2010)
+			};
+
+			var s1 = from p in family select p.m_Name;							// OK
+		//	var s2 = from p in family select new p.m_Name;						// Error
+		//	var s3 = from p in family select { p.m_Name, p.m_BirthYear };		// Error
+			var s4 = from p in family select new { p.m_Name, p.m_BirthYear };	// OK
 		}
 
 		static void Main(string[] args)
 		{
 			Test1();
 			Test2();
+			Test3();
 		}
 	}
 

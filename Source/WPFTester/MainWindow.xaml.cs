@@ -144,7 +144,6 @@ namespace WPFTester
 
 		private void BtnSpin_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			imgSpin.Spin();
 		}
 	}
 }
